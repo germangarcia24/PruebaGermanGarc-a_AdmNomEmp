@@ -1,0 +1,96 @@
+﻿@model PruebaGermanGarcía_AdmNomEmp.Models.ViewModels.EmpleadoVM;
+@{
+    ViewData["Title"] = "Empleado_Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.oEmpleado.Id == 0)
+{
+    <h1>Crear Empleado</h1>
+}
+else
+{
+    <h1>Editar Empleado</h1>
+}
+
+<div class="row">
+    <div class="col-12">
+        <form asp-action="Empleado_Detalle" asp-controller="Home" method="post" onsubmit="return validarSalarioMensual()">
+            <input type="hidden" asp-for="oEmpleado.Id" />
+
+            @if (Model.oEmpleado.Id != 0)
+                {
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="oEmpleado.NumeroEmpleado">NumeroEmpleado </label>
+                    <input class="form-control" asp-for="oEmpleado.NumeroEmpleado" type="text" disabled/>
+                </div>
+                }
+
+            <div class="col-md-2">
+                <label class="form-label" asp-for="oEmpleado.Nombre">Nombre completo </label>
+                <input class="form-control" asp-for="oEmpleado.Nombre" type="text"/> 
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label" asp-for="oEmpleado.SalarioMensual">Salario Mensual </label>
+                <input class="form-control" asp-for="oEmpleado.SalarioMensual" type="text" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label" asp-for="oEmpleado.DepartamentoId">Departamento </label>
+                <select class="form-select" asp-for="oEmpleado.DepartamentoId" asp-items="@Model.oListaDepartamento">
+                    <options selected disabled>-- Seleccionar --</options>
+                </select>
+                
+            </div>
+            <hr />
+            @if (Model.oEmpleado.Id != 0)
+            {
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="@Model.SalarioQuincenal">Salario quincenal </label>
+                    <input class="form-control" asp-for="@Model.SalarioQuincenal" type="text"  disabled/>
+
+                </div> 
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="@Model.DeduccionIMSS">Deducción IMSS </label>
+                    <input class="form-control" asp-for="@Model.DeduccionIMSS" type="text" disabled />
+                
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="@Model.DeduccionISR">Deducción ISR </label>
+                    <input class="form-control" asp-for="@Model.DeduccionISR" type="text" disabled />
+
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="@Model.SalarioNeto">Salario neto </label>
+                    <input class="form-control" asp-for="@Model.SalarioNeto" type="text" disabled />
+
+                </div>
+            }
+                <hr />
+            <div class="col-md-2">
+                @if (Model.oEmpleado.Id == 0)
+                {
+                    <button class="btn btn-primary btn-sm" type="submit">Crear</button>
+                }
+                <a class="btn btn-dark btn-sm" asp-action="Index" asp-controller="Home" >Volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function validarSalarioMensual() {
+        var sueldo = document.getElementById("oEmpleado_SalarioMensual").value;
+        var nombre = document.getElementById("oEmpleado_Nombre").value;
+        if(nombre == ""){
+            alert('El campo nombre no puede estar vacio');
+             return false;
+        }else if (sueldo <= 0 || sueldo == ""){
+            alert('El campo sueldo, no puede ser 0 o estar vacio \n Favor de ingresar una cifra correcta');
+            return false; 
+        } else if (sueldo > 0 )  {
+            return true; 
+        } 
+    }
+</script>
+

@@ -1,0 +1,46 @@
+﻿
+@model List<PruebaGermanGarcía_AdmNomEmp.Models.TblEmpleado>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h1>Lista de empleados</h1>
+    </div>
+    <div class="card-body">
+        <a class="btn btn-success btn-sm" asp-action="Empleado_Detalle" asp-controller="Home" asp-route-idEmpleado="0">Agregar empleado</a>
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Número </th>
+                    <th>Nombre empleado </th>
+                    <th>Departamento </th>
+                    <th>Salario mensual </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@item.NumeroEmpleado</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Departamento.Nombre</td>
+                        <td>@item.SalarioMensual</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" asp-action="Empleado_Detalle" asp-controller="Home" asp-route-idEmpleado="@item.Id">Ver nómina</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
