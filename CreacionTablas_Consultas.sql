@@ -1,4 +1,7 @@
-
+IF DB_ID('DB_GestionEmpleadosNominas') IS NULL
+BEGIN
+    CREATE DATABASE DB_GestionEmpleadosNominas;
+END
 
 
 
